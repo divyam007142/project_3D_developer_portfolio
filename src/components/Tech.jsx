@@ -11,6 +11,7 @@ import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
 import CanvasLoader from "./Loader";
 
+// One flat static “ball”
 const FlatBall = ({ imgUrl, position }) => {
   const [decal] = useTexture([imgUrl]);
 
@@ -35,12 +36,12 @@ const FlatBall = ({ imgUrl, position }) => {
 };
 
 const Tech = () => {
-  const spacingX = 4; // Horizontal gap
-  const spacingY = 4; // Vertical gap
-  const perRow = 4;   // Number per row
+  const spacingY = 3.5; // vertical gap
+  const leftX = -4; // left column X
+  const rightX = 4; // right column X
 
   return (
-    <div className="w-full h-[500px]">
+    <div className="w-full h-[600px]">
       <Canvas
         camera={{ position: [0, 0, 20], fov: 50 }}
         gl={{ preserveDrawingBuffer: true }}
@@ -49,15 +50,13 @@ const Tech = () => {
           <ambientLight intensity={0.5} />
           <directionalLight position={[0, 5, 5]} intensity={0.5} />
 
-          {/* OPTIONAL: If you want user to orbit */}
+          {/* No user rotation */}
           <OrbitControls enableZoom={false} enableRotate={false} />
 
           {technologies.map((tech, index) => {
-            const row = Math.floor(index / perRow);
-            const col = index % perRow;
-
-            const posX = (col - (perRow - 1) / 2) * spacingX;
-            const posY = -row * spacingY + 3;
+            const col = index < 7 ? 0 : 1; // left or right
+            const posX = col === 0 ? leftX : rightX;
+            const posY = -(index % 7) * spacingY + 10; // stack down
 
             return (
               <FlatBall
