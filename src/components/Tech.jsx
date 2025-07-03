@@ -35,12 +35,11 @@ const FlatBall = ({ imgUrl, position }) => {
 };
 
 const Tech = () => {
-  const spacingY = 3.5; // vertical gap
-  const leftX = -4; // left column X
-  const rightX = 4; // right column X
+  const spacingX = 3.5; // horizontal gap between balls
+  const spacingY = 3.5; // vertical gap between rows
 
   return (
-    <div className="w-full h-[600px]">
+    <div className="w-full h-[400px]">
       <Canvas
         camera={{ position: [0, 0, 20], fov: 50 }}
         gl={{ preserveDrawingBuffer: true }}
@@ -52,11 +51,12 @@ const Tech = () => {
           <OrbitControls enableZoom={false} enableRotate={false} />
 
           {technologies.map((tech, index) => {
-            // Column & row position
-            const isLeft = index < 7; // first 7 balls left
-            const posX = isLeft ? leftX : rightX;
-            const order = isLeft ? index : index - 7;
-            const posY = 10 - order * spacingY;
+            // Row position
+            const isTopRow = index < 7;
+            const posY = isTopRow ? spacingY / 2 : -spacingY / 2;
+            const posX = isTopRow
+              ? (index - 3) * spacingX // 7 balls: index 0-6
+              : (index - 7 - 2.5) * spacingX; // 6 balls: index 7-12
 
             return (
               <FlatBall
