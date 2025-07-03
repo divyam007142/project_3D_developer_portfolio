@@ -200,7 +200,7 @@ const projects = [
   {
     name: "Gemini Clone",
     description:
-      "Gemini AI is a modern AI-powered web app that allows users to generate stunning images from natural language prompts , Built with React, JavaScript, and Gemini API",
+      "Gemini AI is a modern AI-powered web app that allows users to generate stunning images from natural language prompts. Built with React, JavaScript, and Gemini API.",
     tags: [
       {
         name: "react",
@@ -221,7 +221,7 @@ const projects = [
   {
     name: "To-Do-List",
     description:
-      "React.js todo app with many features, including sharing tasks via link, P2P synchronization using WebRTC, theme customization and offline usage as a PWA.",
+      "React.js todo app with many features, including sharing tasks via link, P2P synchronization using WebRTC, theme customization, and offline usage as a PWA.",
     tags: [
       {
         name: "react",
@@ -242,7 +242,7 @@ const projects = [
   {
     name: "Weather App",
     description:
-      "A sleek and smart weather App that provides real-time forecasts, temperature, and rain alerts with an intuitive user interface. Its made using React.js, Tailwind CSS and Ant Design.",
+      "A sleek and smart weather App that provides real-time forecasts, temperature, and rain alerts with an intuitive user interface. It's made using React.js, Tailwind CSS and Ant Design.",
     tags: [
       {
         name: "nextjs",
