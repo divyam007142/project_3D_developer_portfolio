@@ -11,7 +11,6 @@ import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
 import CanvasLoader from "./Loader";
 
-// One flat static “ball”
 const FlatBall = ({ imgUrl, position }) => {
   const [decal] = useTexture([imgUrl]);
 
@@ -50,13 +49,14 @@ const Tech = () => {
           <ambientLight intensity={0.5} />
           <directionalLight position={[0, 5, 5]} intensity={0.5} />
 
-          {/* No user rotation */}
           <OrbitControls enableZoom={false} enableRotate={false} />
 
           {technologies.map((tech, index) => {
-            const col = index < 7 ? 0 : 1; // left or right
-            const posX = col === 0 ? leftX : rightX;
-            const posY = -(index % 7) * spacingY + 10; // stack down
+            // Column & row position
+            const isLeft = index < 7; // first 7 balls left
+            const posX = isLeft ? leftX : rightX;
+            const order = isLeft ? index : index - 7;
+            const posY = 10 - order * spacingY;
 
             return (
               <FlatBall
