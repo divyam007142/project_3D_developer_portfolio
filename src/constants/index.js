@@ -122,7 +122,7 @@ const experiences = [
     iconBg: "#383E56",
     date: "May 2023 - July 2023",
     points: [
-      "Developing and maintaining web applications using Javascript and other related technologies.",
+      "Developing and maintaining web applications using React.js and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
       "Implementing responsive design and ensuring cross-browser compatibility.",
       "Participating in code reviews and providing constructive feedback to other developers.",
@@ -156,7 +156,7 @@ const experiences = [
   },
   {
     title: "Backend Developer",
-    company_name: "Discord",
+    company_name: "React",
     icon: meta,
     iconBg: "#E6DEDD",
     date: "Apr 2025 - Present",
@@ -188,7 +188,7 @@ const testimonials = [
   },
   {
     testimonial:
-      "After you sponsored our website, our traffic increased by 50%. We can't thank them enough!",
+      "After he sponsored our website, our traffic increased by 50%. We can't thank them enough!",
     name: "Lisa Wang",
     designation: "CTO",
     company: "456 Enterprises",
@@ -221,7 +221,7 @@ const projects = [
   {
     name: "To-Do-List",
     description:
-      " React.js todo app with many features, including sharing tasks via link, P2P synchronization using WebRTC, theme customization and offline usage as a PWA.",
+      "React.js todo app with many features, including sharing tasks via link, P2P synchronization using WebRTC, theme customization and offline usage as a PWA.",
     tags: [
       {
         name: "react",
