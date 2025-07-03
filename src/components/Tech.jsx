@@ -10,19 +10,17 @@ import {
 
 import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
-import CanvasLoader from "../components/Loader";
+import CanvasLoader from "./Loader";
 
 const Ball = ({ imgUrl, position }) => {
   const [decal] = useTexture([imgUrl]);
 
   return (
-    <Float // 🗂️ Each Ball has its own Float!
-      speed={1.75}
-      rotationIntensity={1}
-      floatIntensity={2}
+    <Float
+      speed={2}
+      rotationIntensity={2}
+      floatIntensity={3}
     >
-      <ambientLight intensity={0.25} />
-      <directionalLight position={[0, 0, 0.05]} />
       <mesh position={position} scale={1.5} castShadow receiveShadow>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial
@@ -44,37 +42,41 @@ const Ball = ({ imgUrl, position }) => {
 };
 
 const Tech = () => {
-  const itemsPerRow = 4; // ✅ Adjust for rows
-  const spacing = 3; // ✅ Adjust for gaps
+  const spacingX = 4; // horizontal gap
+  const spacingY = 4; // vertical gap
+  const perRow = 4;   // how many balls per row
 
   return (
-    <Canvas
-      frameloop='demand'
-      dpr={[1, 2]}
-      camera={{ position: [0, 0, 20], fov: 50 }}
-      gl={{ preserveDrawingBuffer: true }}
-    >
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls enableZoom={false} />
-        {technologies.map((tech, index) => {
-          const row = Math.floor(index / itemsPerRow);
-          const col = index % itemsPerRow;
-          return (
-            <Ball
-              key={tech.name}
-              imgUrl={tech.icon}
-              position={[
-                col * spacing - (itemsPerRow / 2) * spacing + spacing / 2,
-                -(row * spacing),
-                0,
-              ]}
-            />
-          );
-        })}
-      </Suspense>
+    <div className="w-full h-[500px]"> {/* Fix height to contain canvas */}
+      <Canvas
+        camera={{ position: [0, 0, 20], fov: 50 }}
+        gl={{ preserveDrawingBuffer: true }}
+      >
+        <Suspense fallback={<CanvasLoader />}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[0, 5, 5]} intensity={0.5} />
+          <OrbitControls enableZoom={false} />
 
-      <Preload all />
-    </Canvas>
+          {technologies.map((tech, index) => {
+            const row = Math.floor(index / perRow);
+            const col = index % perRow;
+
+            // Spread out balls nicely
+            const posX = (col - (perRow - 1) / 2) * spacingX;
+            const posY = -row * spacingY + 3;
+
+            return (
+              <Ball
+                key={tech.name}
+                imgUrl={tech.icon}
+                position={[posX, posY, 0]}
+              />
+            );
+          })}
+        </Suspense>
+        <Preload all />
+      </Canvas>
+    </div>
   );
 };
 
