@@ -16,10 +16,14 @@ const Ball = ({ imgUrl, position }) => {
   const [decal] = useTexture([imgUrl]);
 
   return (
-    <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
+    <Float // 🗂️ Each Ball has its own Float!
+      speed={1.75}
+      rotationIntensity={1}
+      floatIntensity={2}
+    >
       <ambientLight intensity={0.25} />
       <directionalLight position={[0, 0, 0.05]} />
-      <mesh position={position} scale={2.75} castShadow receiveShadow>
+      <mesh position={position} scale={1.5} castShadow receiveShadow>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial
           color='#fff8eb'
@@ -40,22 +44,33 @@ const Ball = ({ imgUrl, position }) => {
 };
 
 const Tech = () => {
+  const itemsPerRow = 4; // ✅ Adjust for rows
+  const spacing = 3; // ✅ Adjust for gaps
+
   return (
     <Canvas
       frameloop='demand'
       dpr={[1, 2]}
+      camera={{ position: [0, 0, 20], fov: 50 }}
       gl={{ preserveDrawingBuffer: true }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enableZoom={false} />
-        {technologies.map((tech, index) => (
-          <Ball
-            key={tech.name}
-            imgUrl={tech.icon}
-            // Example positions in a grid row
-            position={[index * 3 - 12, 0, 0]}
-          />
-        ))}
+        {technologies.map((tech, index) => {
+          const row = Math.floor(index / itemsPerRow);
+          const col = index % itemsPerRow;
+          return (
+            <Ball
+              key={tech.name}
+              imgUrl={tech.icon}
+              position={[
+                col * spacing - (itemsPerRow / 2) * spacing + spacing / 2,
+                -(row * spacing),
+                0,
+              ]}
+            />
+          );
+        })}
       </Suspense>
 
       <Preload all />
