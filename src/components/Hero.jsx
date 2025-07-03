@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 import { styles } from "../styles";
 import { ComputersCanvas } from "./canvas";
@@ -8,14 +8,16 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
+    // Check window width when component mounts
+    const handleResize = () => {
       setIsMobile(window.innerWidth <= 500);
     };
 
-    checkMobile(); // Initial check
+    handleResize(); // Run once on mount
 
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -34,14 +36,14 @@ const Hero = () => {
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
             I develop 3D visuals, user <br className='sm:block hidden' />
-            interfaces and web applications
+            interfaces and web applications.
           </p>
         </div>
       </div>
 
       {isMobile ? (
-        <div className="w-full h-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
-          <p className="text-white text-2xl">3D Canvas disabled on mobile</p>
+        <div className='w-full h-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center'>
+          <p className='text-white text-2xl'>3D Canvas disabled on mobile</p>
         </div>
       ) : (
         <ComputersCanvas />
