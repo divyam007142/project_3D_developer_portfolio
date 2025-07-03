@@ -11,19 +11,24 @@ const Hero = () => {
       setIsMobile(window.innerWidth <= 500);
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial check
 
+    window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ Dynamically import only on desktop
   useEffect(() => {
+    let mounted = true;
     if (!isMobile) {
       import("./canvas/Computers").then((mod) => {
-        setComputersCanvas(() => mod.ComputersCanvas || mod.default);
+        if (mounted) {
+          setComputersCanvas(() => mod.default || mod.ComputersCanvas);
+        }
       });
     }
+    return () => {
+      mounted = false;
+    };
   }, [isMobile]);
 
   return (
@@ -51,13 +56,11 @@ const Hero = () => {
         <div className="w-full h-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
           <p className="text-white text-2xl">3D Canvas disabled on mobile</p>
         </div>
-      ) : (
-        ComputersCanvas && (
-          <Suspense fallback={<div className="text-white">Loading...</div>}>
-            <ComputersCanvas />
-          </Suspense>
-        )
-      )}
+      ) : ComputersCanvas ? (
+        <Suspense fallback={<div className="text-white">Loading 3D...</div>}>
+          <ComputersCanvas />
+        </Suspense>
+      ) : null}
 
       <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center">
         <a href="#about">
