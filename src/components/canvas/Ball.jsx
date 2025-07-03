@@ -1,10 +1,9 @@
 import React from "react";
-import { Decal, Float, OrbitControls, Preload, useTexture } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import CanvasLoader from "../Loader";
+import { Decal, Float, useTexture } from "@react-three/drei";
 
-const Ball = ({ imgUrl }) => {
-  const [decal] = useTexture([imgUrl]);
+const Ball = ({ icon }) => {
+  const [decal] = useTexture([icon]);
+
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
       <ambientLight intensity={0.25} />
@@ -12,7 +11,7 @@ const Ball = ({ imgUrl }) => {
       <mesh castShadow receiveShadow scale={2.5}>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial
-          color='#fff8eb'
+          color="#fff8eb"
           polygonOffset
           polygonOffsetFactor={-5}
           flatShading
