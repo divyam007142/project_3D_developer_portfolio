@@ -1,6 +1,5 @@
 import React from "react";
-
-import BallCanvas from "./canvas/BallCanvas"; // ✅ note: NOT named import!
+import BallCanvas from "./canvas/BallCanvas";
 import { SectionWrapper } from "../hoc";
 
 const Tech = () => {
